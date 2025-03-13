@@ -156,5 +156,5 @@ System.out.println(isDivisible.test(10, 5)); // true
 
 ## **🔴 Hard (Advanced) - Solutions**
 
-_(Advanced Predicate solutions will be continued in the next iteration)_
+_To be added
 
