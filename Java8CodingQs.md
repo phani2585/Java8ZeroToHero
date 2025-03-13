@@ -153,8 +153,150 @@ System.out.println(isDivisible.test(10, 5)); // true
 ```
 
 ---
+# Java 8 Predicate - Hard Problems & Solutions
 
 ## **🔴 Hard (Advanced) - Solutions**
 
-_To be added
+### **1️⃣ Validate a strong password**
+```java
+Predicate<String> isStrongPassword = pwd -> 
+    pwd.length() >= 8 && 
+    pwd.chars().anyMatch(Character::isUpperCase) && 
+    pwd.chars().anyMatch(Character::isLowerCase) && 
+    pwd.chars().anyMatch(Character::isDigit) &&
+    pwd.chars().anyMatch(ch -> "!@#$%^&*()_+".indexOf(ch) >= 0);
+System.out.println(isStrongPassword.test("Str0ng@Pwd")); // true
+```
+
+### **2️⃣ Check if a number is a Fibonacci number**
+```java
+Predicate<Integer> isFibonacci = num -> {
+    int a = 0, b = 1;
+    while (b < num) {
+        int temp = b;
+        b = a + b;
+        a = temp;
+    }
+    return b == num || num == 0;
+};
+System.out.println(isFibonacci.test(21)); // true
+System.out.println(isFibonacci.test(25)); // false
+```
+
+### **3️⃣ Validate a MAC address**
+```java
+Predicate<String> isValidMAC = mac -> mac.matches("^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$");
+System.out.println(isValidMAC.test("00:1A:2B:3C:4D:5E")); // true
+```
+
+### **4️⃣ Check if a list contains only unique elements**
+```java
+Predicate<List<Integer>> hasUniqueElements = list ->
+    list.size() == new HashSet<>(list).size();
+System.out.println(hasUniqueElements.test(Arrays.asList(1, 2, 3, 4))); // true
+System.out.println(hasUniqueElements.test(Arrays.asList(1, 2, 2, 3))); // false
+```
+
+### **5️⃣ Validate a hexadecimal color code**
+```java
+Predicate<String> isValidHexColor = color -> color.matches("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
+System.out.println(isValidHexColor.test("#FFA07A")); // true
+```
+
+## **🔴 5 More Tough Problems**
+
+### **6️⃣ Check if a number is an Armstrong number**
+```java
+Predicate<Integer> isArmstrong = num -> {
+    int sum = 0, temp = num, digits = String.valueOf(num).length();
+    while (temp > 0) {
+        sum += Math.pow(temp % 10, digits);
+        temp /= 10;
+    }
+    return sum == num;
+};
+System.out.println(isArmstrong.test(153)); // true
+```
+
+### **7️⃣ Validate a complex JSON string format**
+```java
+Predicate<String> isValidJson = json -> json.trim().matches("\{.*:\{.*:.*}}");
+System.out.println(isValidJson.test("{\"data\":{\"key\":\"value\"}}")); // true
+```
+
+### **8️⃣ Check if a given year is a leap year**
+```java
+Predicate<Integer> isLeapYear = year -> (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+System.out.println(isLeapYear.test(2024)); // true
+```
+
+### **9️⃣ Validate a binary number**
+```java
+Predicate<String> isBinary = bin -> bin.matches("[01]+");
+System.out.println(isBinary.test("101010")); // true
+System.out.println(isBinary.test("123")); // false
+```
+
+### **🔟 Check if a string is a palindrome ignoring case**
+```java
+Predicate<String> isPalindromeIgnoreCase = str -> {
+    String lowerStr = str.toLowerCase();
+    return IntStream.range(0, lowerStr.length() / 2)
+        .allMatch(i -> lowerStr.charAt(i) == lowerStr.charAt(lowerStr.length() - 1 - i));
+};
+System.out.println(isPalindromeIgnoreCase.test("Madam")); // true
+```
+
+## **🔴 2 Most Tough Problems**
+
+### **1️⃣1️⃣ Validate a well-formed XML string**
+```java
+Predicate<String> isValidXML = xml -> xml.matches("<([a-zA-Z]+)>.*</\\1>");
+System.out.println(isValidXML.test("<tag>Hello</tag>")); // true
+System.out.println(isValidXML.test("<tag>Hello</other>")); // false
+```
+
+### **1️⃣2️⃣ Check if a given Sudoku board is valid**
+```java
+Predicate<int[][]> isValidSudoku = board -> {
+    Set<String> seen = new HashSet<>();
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
+            int num = board[i][j];
+            if (num != 0) {
+                if (!seen.add(num + " in row " + i) ||
+                    !seen.add(num + " in col " + j) ||
+                    !seen.add(num + " in box " + (i / 3) + "-" + (j / 3))) {
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+};
+System.out.println(isValidSudoku.test(new int[][] {
+    {5,3,0,0,7,0,0,0,0},
+    {6,0,0,1,9,5,0,0,0},
+    {0,9,8,0,0,0,0,6,0},
+    {8,0,0,0,6,0,0,0,3},
+    {4,0,0,8,0,3,0,0,1},
+    {7,0,0,0,2,0,0,0,6},
+    {0,6,0,0,0,0,2,8,0},
+    {0,0,0,4,1,9,0,0,5},
+    {0,0,0,0,8,0,0,7,9}
+})); // true
+```
+
+## **🔥 1 Toughest Problem**
+
+### **1️⃣3️⃣ Check if a given text follows a complex grammar rule**
+```java
+Predicate<String> followsGrammar = text -> text.matches("[A-Z][a-z]*(,\s[A-Z][a-z]*)*");
+System.out.println(followsGrammar.test("John, Alice, Bob")); // true
+System.out.println(followsGrammar.test("john, Alice, Bob")); // false
+```
+
+These are the hardest Predicate-based challenges, covering various levels of difficulty for mastering Java 8 functional programming. 🚀
+
+
 
