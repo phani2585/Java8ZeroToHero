@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -105,6 +107,27 @@ public class PredicateExamples {
         Predicate<Integer> isPrimeNumber =num-> IntStream.rangeClosed(2,(int)Math.sqrt(num)).noneMatch(i->num%i==0);
         System.out.println("10 is Prime ? ::"+isPrimeNumber.test(10));
         System.out.println("5 is Prime ? ::"+isPrimeNumber.test(5));
+
+        //is Even and greater than 10
+        Predicate<Integer> isEvenGreaterThan10=isEven.and(x->x>10);
+        System.out.println(isEvenGreaterThan10.test(20));
+        Predicate<String> containsVowel=s->s.matches(".*[AEIOUaeiou]*.");
+        System.out.println("Hello conatins vowels :"+containsVowel.test("Hello"));
+
+        //words starting and ending with Vowels ...** IMP
+        List<String> words = Arrays.asList("apple", "banana", "orange", "grape");
+        List<String> wordsVowels = words.stream().filter(word -> word.matches("^[AEIOUaeiou].*[AEIOUaeiou]$")).collect(Collectors.toList());
+        System.out.println(wordsVowels);
+
+        BiPredicate<Integer,Integer> isDivisible=(a,b)->a%b==0;
+        System.out.println("10 is divisible by 5 " +isDivisible.test(10,5));
+
+        //list contains unique elements **** IMP ***
+        Predicate<List<Integer>> hasUniqueElements=l->l.size()==new HashSet<>(l).size();
+        List<Integer> list1=Arrays.asList(1,2,3,4);
+        List<Integer> list2=Arrays.asList(1,2,2,3);
+        System.out.println("list1 has unique elements :: "+hasUniqueElements.test(list1));
+        System.out.println("list2 has unique elements :: "+hasUniqueElements.test(list2));
     }
     public static boolean isPrime(int num){
      if(num <2){
