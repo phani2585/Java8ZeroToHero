@@ -392,5 +392,7 @@ System.out.println(followsGrammar.test("john, Alice, Bob")); // false
 
 These are the hardest Predicate-based challenges, covering various levels of difficulty for mastering Java 8 functional programming. 🚀
 
+Next -- palindrome check .....then complete java8 , one by one THEN COLLECTIONS CODING , CONCURRENCY AND MULTI THREADING CODING THEN REACTIVE PROGRAMMING , KAFKA , RABBIT MQ BASIC CODING .THEN THEORY 
+
 
 
