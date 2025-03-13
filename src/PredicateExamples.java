@@ -3,8 +3,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
-public class Main {
+public class PredicateExamples {
     public static void main(String[] args) {
 
         MyFunctionalInterface addition=(x,y)->x+y;
@@ -79,7 +80,43 @@ public class Main {
         System.out.println(hasAllEven.test(testNums2));
         System.out.println(hasAllEven.test(testNums));
         System.out.println(hasAllEven.test(testNums3));
+        // valid email
+        Predicate<String> isValidEmail=x->x.contains("@") && x.contains(".");
+        System.out.println("phani@gmail.com is a valid email :: "+isValidEmail.test("phani@gmail.com"));
+        System.out.println("abc@gmail is a valid email :: "+isValidEmail.test("abc@gmail"));
 
+        List<Double> sals=Arrays.asList(60000.0,30000.0,50000.0);
+        List<Double> highSals = sals.stream().filter(y -> y >= 50000.0).collect(Collectors.toList());
+        System.out.println(highSals);
+// without Java8 , traditional way
+        System.out.println("10 is Prime ? ::"+isPrime(10));
+        System.out.println("5 is Prime ? ::"+isPrime(5));
+        //isNum prime ..** IMP ** 1 and itself should be factors , check for factors
+/*for(int i=2;i<=Math.sqrt(num); i++){
+         if(num%i==0){
+             // found a factor => num is not prime , already 1 is a factor of all numbers and every number is a factor of itself , we found one additional factor
+             return false;
+         }
+     }*/
+        //convert this to Java8 syntax--high level
+       /* num-> {
+            return IntStream.rangeClosed(2, (int) Math.sqrt(num)).noneMatch(i -> num % i == 0);
+        };*/
+        Predicate<Integer> isPrimeNumber =num-> IntStream.rangeClosed(2,(int)Math.sqrt(num)).noneMatch(i->num%i==0);
+        System.out.println("10 is Prime ? ::"+isPrimeNumber.test(10));
+        System.out.println("5 is Prime ? ::"+isPrimeNumber.test(5));
+    }
+    public static boolean isPrime(int num){
+     if(num <2){
+         return false; // 0 and 1 are not prime
+     }
+     for(int i=2;i<=Math.sqrt(num); i++){
+         if(num%i==0){
+             // found a factor => num is not prime , already 1 is a factor of all numbers and every number is a factor of itself , we found one additional factor
+             return false;
+         }
+     }
+     return true; // no factors or divisors found , only 1 and itself are factors of the number , we are checking if it is a prime number
     }
 }
 
@@ -87,6 +124,8 @@ public class Main {
 interface MyFunctionalInterface{
     int calculate(int a, int b);
 }
+
+
 
 class Person{
     private String name;

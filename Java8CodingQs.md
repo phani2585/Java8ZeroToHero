@@ -123,6 +123,71 @@ System.out.println(highSalaries); // [60000.0, 75000.0]
 Predicate<Integer> isPrime = num -> IntStream.rangeClosed(2, (int) Math.sqrt(num))
                                             .allMatch(i -> num % i != 0);
 System.out.println(isPrime.test(7)); // true
+
+
+Here are different ways to implement the prime number check using Java 8+ features:
+
+1. Using noneMatch (Concise and Readable)
+
+import java.util.stream.IntStream;
+
+public class PrimeCheckJava8 {
+    public static void main(String[] args) {
+        System.out.println("10 is Prime ? ::" + isPrime(10));
+        System.out.println("5 is Prime ? ::" + isPrime(5));
+    }
+
+    public static boolean isPrime(int num) {
+        if (num < 2) {
+            return false;
+        }
+        return IntStream.rangeClosed(2, (int) Math.sqrt(num))
+                        .noneMatch(i -> num % i == 0);
+    }
+}
+🔹 Explanation:
+
+rangeClosed(2, √num): Generates numbers from 2 to √num.
+noneMatch(i -> num % i == 0): Returns true if no divisor is found, meaning the number is prime.
+2. Using allMatch (Alternative)
+
+public static boolean isPrimeUsingAllMatch(int num) {
+    if (num < 2) {
+        return false;
+    }
+    return IntStream.rangeClosed(2, (int) Math.sqrt(num))
+                    .allMatch(i -> num % i != 0);
+}
+🔹 Explanation:
+
+Instead of checking for no match, this checks if all numbers are not divisors.
+3. Using filter and count (Less Efficient but Descriptive)
+
+public static boolean isPrimeUsingCount(int num) {
+    if (num < 2) {
+        return false;
+    }
+    return IntStream.rangeClosed(2, (int) Math.sqrt(num))
+                    .filter(i -> num % i == 0)
+                    .count() == 0;
+}
+🔹 Explanation:
+
+Filters numbers that divide num and counts them.
+If the count is 0, it's prime.
+4. Fully Concise One-Liner (Lambda Expression)
+
+public static boolean isPrimeOneLiner(int num) {
+    return num > 1 && IntStream.rangeClosed(2, (int) Math.sqrt(num)).noneMatch(i -> num % i == 0);
+}
+🔹 Explanation:
+
+Combines everything into a single return statement.
+Best Choice?
+noneMatch approach is the most readable and efficient for Java 8.
+allMatch is an alternative but less intuitive.
+count is not recommended for performance reasons.
+One-liner is great for brevity.
 ```
 import java.util.Scanner; // Importing Scanner class for user input
 
