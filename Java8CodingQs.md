@@ -124,6 +124,35 @@ Predicate<Integer> isPrime = num -> IntStream.rangeClosed(2, (int) Math.sqrt(num
                                             .allMatch(i -> num % i != 0);
 System.out.println(isPrime.test(7)); // true
 ```
+import java.util.Scanner; // Importing Scanner class for user input
+
+public class PrimeNumberCheck { // Class definition
+    public static void main(String[] args) { // Main method, entry point of the program
+        Scanner scanner = new Scanner(System.in); // Creating Scanner object to take user input
+        System.out.print("Enter a number: "); // Prompting user to enter a number
+        int number = scanner.nextInt(); // Reading integer input from the user
+        scanner.close(); // Closing the scanner to prevent resource leak
+
+        if (isPrime(number)) { // Checking if the entered number is prime
+            System.out.println(number + " is a prime number."); // Printing result if number is prime
+        } else {
+            System.out.println(number + " is not a prime number."); // Printing result if number is not prime
+        }
+    }
+
+    public static boolean isPrime(int num) { // Method to check if a number is prime
+        if (num < 2) { // If number is less than 2, it is not prime
+            return false;
+        }
+        for (int i = 2; i <= Math.sqrt(num); i++) { // Loop from 2 to square root of the number
+            if (num % i == 0) { // If number is divisible by any i, it's not prime
+                return false; // Return false if a divisor is found
+            }
+        }
+        return true; // Return true if no divisors are found, meaning number is prime
+    }
+}
+
 
 ### **7️⃣ Chain predicates: Check if number is even and > 10**
 ```java
