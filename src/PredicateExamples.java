@@ -150,9 +150,33 @@ public class PredicateExamples {
 
         //ArmStrong number
         Predicate<Integer> isArmStrong=n->{
-            IntStream.rangeClosed(0,String.valueOf(n).length()).ch
-        }
+            int digits=String.valueOf(n).length();
+            int temp=n;
+            int armStrongSum=0;
+            while(temp>0){
+                armStrongSum+=(Math.pow(temp%10,digits));
+                temp=temp/10;
+            }
+            if(n==armStrongSum){
+                return true;
+            }else{
+                return false;
+            }
+        };
+        System.out.println("153 is Armstrong :: "+isArmStrong.test(153));
+        //more concise
+        //ArmStrong number
+        Predicate<Integer> isArmStrongCheck=n->{
+            int temp=n, sum=0,digits=String.valueOf(n).length();
+            while(temp>0){
+                sum+= (int) Math.pow(temp%10,digits);
+                temp/=10;
+            }
+            return n==sum;
+        };
+        System.out.println("153 is Armstrong :: "+isArmStrongCheck.test(153));
     }
+
 
     public static boolean isPrime(int num){
      if(num <2){
