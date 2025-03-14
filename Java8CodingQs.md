@@ -298,6 +298,108 @@ System.out.println(isValidHexColor.test("#FFA07A")); // true
 ```
 
 ## **🔴 5 More Tough Problems**
+```java
+// Traditional Approach (Loop-based) ArmStrong Number Check **** IMP ****
+public class ArmstrongNumber {
+    public static void main(String[] args) {
+        int num = 9474;
+        System.out.println(num + " is Armstrong? " + isArmstrong(num));
+    }
+
+    public static boolean isArmstrong(int num) {
+        int originalNum = num, sum = 0, digits = 0;
+
+        // Step 1: Count the number of digits
+        int temp = num;
+        while (temp > 0) {
+            temp /= 10;
+            digits++;
+        }
+
+        // Step 2: Calculate Armstrong sum
+        temp = num;
+        while (temp > 0) {
+            int digit = temp % 10;
+            sum += Math.pow(digit, digits);
+            temp /= 10;
+        }
+
+        return sum == originalNum;
+    }
+}
+```
+
+### **Traditional Approach Explanation**
+- **Step 1:** Count the number of digits using a loop.
+- **Step 2:** Extract digits, raise them to the power, and sum them.
+- **Step 3:** Compare the sum with the original number.
+- ✅ **Simple & efficient**, avoids unnecessary conversions.
+
+---
+
+```java
+// Java 8 Stream-based Approach
+import java.util.stream.IntStream;
+
+public class ArmstrongNumberJava8 {
+    public static void main(String[] args) {
+        int num = 9474;
+        System.out.println(num + " is Armstrong? " + isArmstrong(num));
+    }
+
+    public static boolean isArmstrong(int num) {
+        int digits = (int) Math.log10(num) + 1; // Efficient digit count
+        return num == IntStream.iterate(num, n -> n > 0, n -> n / 10) // Extract digits
+                .map(n -> (int) Math.pow(n % 10, digits)) // Power each digit
+                .sum(); // Sum and compare
+    }
+}
+```
+
+### **Java 8 Functional Approach Explanation**
+- **Step 1:** Calculate digit count efficiently using `Math.log10()`.
+- **Step 2:** Extract digits using `IntStream.iterate()`.
+- **Step 3:** Raise each digit to the power and sum it.
+- ✅ **More concise and readable**.
+
+---
+
+```java
+// Java 8 Parallel Stream Approach (Optimized for Large Numbers)
+import java.util.stream.IntStream;
+
+public class ArmstrongNumberParallel {
+    public static void main(String[] args) {
+        int num = 9474;
+        System.out.println(num + " is Armstrong? " + isArmstrong(num));
+    }
+
+    public static boolean isArmstrong(int num) {
+        int digits = (int) Math.log10(num) + 1;
+        return num == IntStream.iterate(num, n -> n > 0, n -> n / 10)
+                .parallel() // Enable parallel processing
+                .map(n -> (int) Math.pow(n % 10, digits))
+                .sum();
+    }
+}
+```
+
+### **Parallel Stream Approach Explanation**
+- **Parallel Processing:** Enables faster computation on large numbers.
+- **Useful for handling huge inputs efficiently.**
+
+---
+
+### **Comparison of Approaches**
+| Approach            | Efficiency  | Readability | Best Use Case |
+|--------------------|------------|------------|--------------|
+| **Traditional Loop** | ✅ Fast | ✅ Easy to Understand | Small numbers |
+| **Java 8 Streams**  | ✅ Faster | ✅ More concise | Medium-sized numbers |
+| **Java 8 Parallel** | ✅✅ Fastest | ✅ Concise | Large numbers |
+
+
+
+
 
 ### **6️⃣ Check if a number is an Armstrong number**
 ```java

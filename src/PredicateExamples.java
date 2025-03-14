@@ -147,6 +147,11 @@ public class PredicateExamples {
 
         System.out.println(isPalindromeCase.test("Madam"));  // true
         System.out.println(isPalindromeCase.test("Hello"));  // false
+
+        //ArmStrong number
+        Predicate<Integer> isArmStrong=n->{
+            IntStream.rangeClosed(0,String.valueOf(n).length()).ch
+        }
     }
 
     public static boolean isPrime(int num){
