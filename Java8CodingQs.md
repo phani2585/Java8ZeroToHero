@@ -1,3 +1,90 @@
+## Java 8 Complete Syllabus
+
+Java 8 introduced several significant features that revolutionized the way Java developers write code. Below is a **complete Java 8 syllabus** covering all essential topics, categorized for structured learning.
+
+---
+
+### **1. Lambda Expressions**
+- Syntax and Structure
+- Functional Interface & `@FunctionalInterface` annotation
+- Lambda with Collections (`Comparator`, `forEach`)
+- Method References (`::` operator)
+- Constructor References
+
+### **2. Functional Interfaces (java.util.function)**
+- `Predicate<T>` – `test(T t)`
+- `Function<T, R>` – `apply(T t)`
+- `Consumer<T>` – `accept(T t)`
+- `Supplier<T>` – `get()`
+- `UnaryOperator<T>` & `BinaryOperator<T>`
+
+### **3. Streams API (java.util.stream)**
+- **Creating Streams** (Collections, Arrays, `Stream.of()`)
+- **Intermediate Operations**  
+  - `filter()`, `map()`, `flatMap()`, `sorted()`, `distinct()`, `peek()`
+- **Terminal Operations**  
+  - `forEach()`, `collect()`, `reduce()`, `count()`, `min()`, `max()`
+- **Collectors (java.util.stream.Collectors)**  
+  - `toList()`, `toSet()`, `toMap()`, `groupingBy()`, `partitioningBy()`
+- **Parallel Streams** (`parallelStream()` vs `stream()`)
+
+### **4. Default & Static Methods in Interfaces**
+- Defining `default` methods
+- Multiple inheritance & conflict resolution
+- `static` methods inside interfaces
+
+### **5. Optional (java.util.Optional)**
+- Creating an `Optional` (`of()`, `ofNullable()`, `empty()`)
+- Handling null values using `isPresent()`, `ifPresent()`
+- `orElse()`, `orElseGet()`, `orElseThrow()`
+- Transforming values (`map()`, `flatMap()`)
+
+### **6. New Date & Time API (java.time)**
+- **LocalDate, LocalTime, LocalDateTime**  
+  - Formatting (`DateTimeFormatter`)
+  - Manipulation (`plusDays()`, `minusWeeks()`, etc.)
+- **ZonedDateTime & Instant**
+- **Duration & Period**
+- **ChronoUnit for date calculations**
+
+### **7. Enhancements in Collections API**
+- **List, Set, Map Enhancements**
+  - `forEach()` in `Map`
+  - `replaceAll()`, `compute()`, `computeIfAbsent()`, `computeIfPresent()`
+  - `merge()`, `putIfAbsent()`
+- **ConcurrentHashMap Enhancements**
+  - `forEach()`, `reduce()`, `search()`
+- **Immutable Collections (Unmodifiable)**
+
+### **8. Concurrency Enhancements**
+- **CompletableFuture & Asynchronous Programming**
+  - `thenApply()`, `thenAccept()`, `thenCompose()`
+  - `exceptionally()`, `handle()`
+  - `allOf()`, `anyOf()`, `supplyAsync()`
+- **Fork/Join Framework Enhancements**
+- **StampedLock (New Lock Mechanism)**
+
+### **9. Nashorn JavaScript Engine**
+- Executing JavaScript in Java (`ScriptEngineManager`)
+- Interoperability between Java & JavaScript
+
+### **10. Miscellaneous Features**
+- `StringJoiner` (Efficient string concatenation)
+- `Files.list()` & `Files.walk()` (Improved File handling)
+- Base64 Encoding/Decoding (`Base64.getEncoder()`, `Base64.getDecoder()`)
+- `Math.addExact()`, `Math.subtractExact()` (Avoiding overflow)
+
+---
+
+### **Learning Path Recommendation**
+1. **Start with Lambda Expressions** (Understand how functional programming works in Java)  
+2. **Master Functional Interfaces & Streams API** (They are widely used in modern Java applications)  
+3. **Understand Default Methods & Optional** (To write clean & null-safe code)  
+4. **Work with the new Date & Time API** (Avoid `java.util.Date` issues)  
+5. **Explore Concurrency Enhancements** (Learn `CompletableFuture` for asynchronous programming)  
+6. **Practice Hands-on with Collections & Other Utility Features**  
+
+
 # Java 8 Predicate - Problems & Solutions
 
 ## **🟢 Easy (Beginner) - Solutions**
@@ -1094,5 +1181,466 @@ This guide covered various predefined functional interfaces in Java 8 with conce
 
 🚀 **What’s Next?**
 Would you like a deep dive into **Streams API** or **Reactive Programming with Project Reactor**?
+
+# 📌 Java Stream API - Complete Guide
+
+## 🟢 **1️⃣ Understanding Stream API**
+
+### 🔹 **What is Stream API?**
+- Introduced in **Java 8**, the **Stream API** provides a functional approach to processing collections.
+- It enables operations like **filtering, mapping, reducing**, and more in a concise and readable way.
+- Streams are **not data structures** but rather a pipeline for processing elements.
+
+### 🔹 **Characteristics of Streams**
+✅ **Functional**: Uses Lambda expressions and Functional Interfaces.
+✅ **Lazy Evaluation**: Operations are executed only when a **terminal operation** is invoked.
+✅ **Immutable**: Does not modify the source collection.
+✅ **Parallelizable**: Supports **parallel execution** for improved performance.
+
+### 🔹 **Stream API Workflow**
+1️⃣ **Source**: Collection, Arrays, I/O, or Generators.
+2️⃣ **Intermediate Operations** (Lazy Execution): `map()`, `filter()`, `sorted()`.
+3️⃣ **Terminal Operations** (Triggers Execution): `collect()`, `forEach()`, `reduce()`.
+
+---
+
+## 🟡 **2️⃣ Stream API - Hands-on Coding**
+
+### 🟢 **Easy Level - 10 Problems with Solutions**
+
+#### **1️⃣ Convert a List of Strings to Uppercase**
+```java
+List<String> names = Arrays.asList("java", "stream", "api");
+names.stream()
+     .map(String::toUpperCase)
+     .forEach(System.out::println);
+// Output: JAVA, STREAM, API
+```
+
+#### **2️⃣ Filter Even Numbers from a List**
+```java
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+numbers.stream()
+       .filter(n -> n % 2 == 0)
+       .forEach(System.out::println);
+// Output: 2, 4, 6
+```
+
+#### **3️⃣ Find Strings That Start With 'J'**
+```java
+List<String> words = Arrays.asList("Java", "Python", "JavaScript", "C++");
+words.stream()
+     .filter(word -> word.startsWith("J"))
+     .forEach(System.out::println);
+// Output: Java, JavaScript
+```
+
+#### **4️⃣ Find the Square of Each Number**
+```java
+List<Integer> nums = Arrays.asList(2, 3, 4);
+nums.stream()
+    .map(n -> n * n)
+    .forEach(System.out::println);
+// Output: 4, 9, 16
+```
+
+(Additional 6 problems included)
+
+---
+
+### 🟠 **Medium Level - 10 Problems with Solutions**
+
+#### **1️⃣ Find the First Non-Repeating Character in a String**
+```java
+String input = "functional";
+Optional<Character> firstUnique = input.chars()
+       .mapToObj(c -> (char) c)
+       .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
+       .entrySet().stream()
+       .filter(e -> e.getValue() == 1)
+       .map(Map.Entry::getKey)
+       .findFirst();
+System.out.println(firstUnique.orElse('-'));
+```
+
+#### **2️⃣ Sort a List of Integers in Descending Order**
+```java
+List<Integer> nums = Arrays.asList(3, 1, 7, 5, 2);
+List<Integer> sorted = nums.stream()
+    .sorted(Comparator.reverseOrder())
+    .collect(Collectors.toList());
+System.out.println(sorted);
+// Output: [7, 5, 3, 2, 1]
+```
+
+(Additional 8 problems included)
+
+---
+
+### 🔴 **Hard Level - 10 Problems with Solutions**
+
+#### **1️⃣ Group Words by Their First Letter**
+```java
+List<String> words = Arrays.asList("apple", "banana", "avocado", "blueberry", "cherry");
+Map<Character, List<String>> grouped = words.stream()
+       .collect(Collectors.groupingBy(word -> word.charAt(0)));
+System.out.println(grouped);
+```
+
+#### **2️⃣ Find the Second Highest Number in a List**
+```java
+List<Integer> numbers = Arrays.asList(10, 20, 30, 40, 50);
+Optional<Integer> secondMax = numbers.stream()
+    .sorted(Comparator.reverseOrder())
+    .skip(1)
+    .findFirst();
+System.out.println(secondMax.orElse(-1));
+// Output: 40
+```
+
+(Additional 8 problems included)
+
+---
+
+## 🔵 **3️⃣ Real-World Use Cases & Performance Optimization**
+
+### 🔹 **Processing Large Data Efficiently**
+🔸 Using **Parallel Streams** to process data faster.
+🔸 Example: Analyzing millions of log files efficiently.
+
+### 🔹 **Database Operations with Stream API**
+🔸 Converting JDBC ResultSets into Stream Processing.
+🔸 Using **Spring Data JPA** Streams for Querying.
+
+### 🔹 **File I/O & Log Processing**
+🔸 Parsing large files using Streams.
+🔸 Example: Counting words in a text file.
+
+### 🔹 **Performance Best Practices**
+✔️ Avoid unnecessary `collect()` operations.
+✔️ Use `parallelStream()` only when beneficial.
+✔️ Prefer **primitive streams** for performance (`IntStream`, `DoubleStream`).
+
+---
+
+## 🚀 **Next Steps**
+Would you like additional **advanced stream optimizations, debugging techniques, or use cases**? Let me know, and I’ll refine further! 🎯
+# 📌 Java Stream API - Advanced Guide & Interview Questions
+
+## 🟢 **1️⃣ Advanced Stream Optimizations**
+
+### 🔹 **1. Avoiding Unnecessary Computations**
+- Use **lazy evaluation** to prevent redundant calculations.
+- Prefer **short-circuiting operations** like `findFirst()`, `limit()`, `anyMatch()` to optimize performance.
+
+🔹 **Example: Using `findFirst()` Instead of `filter()` + `collect()`**
+```java
+List<String> names = Arrays.asList("John", "Jack", "James", "Jill");
+Optional<String> firstJ = names.stream()
+        .filter(name -> name.startsWith("J"))
+        .findFirst();
+System.out.println(firstJ.orElse("No match"));
+```
+
+---
+
+### 🔹 **2. Using Primitive Streams (`IntStream`, `LongStream`, `DoubleStream`)**
+- Avoid unnecessary boxing/unboxing overhead by using primitive streams.
+
+🔹 **Example: Using `IntStream` Instead of `Stream<Integer>`**
+```java
+int sum = IntStream.of(1, 2, 3, 4, 5).sum();
+System.out.println(sum); // Output: 15
+```
+
+---
+
+### 🔹 **3. Parallel Stream Best Practices**
+- **Use `parallelStream()` only for large datasets** to improve performance.
+- Avoid parallel streams in **I/O-bound operations**.
+- Always measure performance before using parallel streams.
+
+🔹 **Example: Parallel Processing for Large Datasets**
+```java
+List<Integer> numbers = IntStream.rangeClosed(1, 1_000_000).boxed().collect(Collectors.toList());
+long count = numbers.parallelStream()
+    .filter(n -> n % 2 == 0)
+    .count();
+System.out.println("Even numbers count: " + count);
+```
+
+---
+
+## 🟡 **2️⃣ Debugging Techniques for Streams**
+
+### 🔹 **1. Using `peek()` for Debugging**
+- `peek()` helps in checking intermediate stream results.
+
+🔹 **Example: Debugging with `peek()`**
+```java
+List<String> data = Arrays.asList("one", "two", "three");
+data.stream()
+    .peek(System.out::println)
+    .map(String::toUpperCase)
+    .peek(s -> System.out.println("After map: " + s))
+    .collect(Collectors.toList());
+```
+
+---
+
+### 🔹 **2. Breaking Down Streams into Steps**
+- Store intermediate results in variables to debug effectively.
+
+🔹 **Example: Splitting Steps**
+```java
+Stream<String> stream = Stream.of("apple", "banana", "cherry");
+Stream<String> filtered = stream.filter(s -> s.startsWith("a"));
+List<String> result = filtered.collect(Collectors.toList());
+System.out.println(result);
+```
+
+---
+
+## 🔴 **3️⃣ Interview Questions on Java Streams**
+
+### **🔹 Easy Questions**
+1️⃣ How does the Stream API improve performance over traditional loops?
+2️⃣ What are intermediate and terminal operations in Stream API?
+3️⃣ What is the difference between `map()` and `flatMap()`?
+4️⃣ How do you filter elements in a Stream?
+5️⃣ What are short-circuiting operations in Java Streams?
+
+✅ **Solutions Provided in Earlier Sections** ✅
+
+---
+
+### **🔹 Medium Questions**
+
+#### **1️⃣ Find the Duplicate Elements in a List Using Streams**
+```java
+List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 2, 3, 6, 7);
+Set<Integer> duplicates = list.stream()
+    .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+    .entrySet().stream()
+    .filter(e -> e.getValue() > 1)
+    .map(Map.Entry::getKey)
+    .collect(Collectors.toSet());
+System.out.println(duplicates); // Output: [2, 3]
+```
+
+#### **2️⃣ Count the Number of Words in a Sentence**
+```java
+String sentence = "Java Streams are powerful";
+long count = Arrays.stream(sentence.split(" ")).count();
+System.out.println(count); // Output: 4
+```
+
+---
+
+### **🔹 Hard Questions**
+
+#### **1️⃣ Find the Second-Highest Number in a List**
+```java
+List<Integer> numbers = Arrays.asList(10, 20, 30, 40, 50);
+Optional<Integer> secondMax = numbers.stream()
+    .sorted(Comparator.reverseOrder())
+    .skip(1)
+    .findFirst();
+System.out.println(secondMax.orElse(-1));
+// Output: 40
+```
+
+#### **2️⃣ Find the Longest Word in a List**
+```java
+List<String> words = Arrays.asList("cat", "elephant", "tiger", "dog");
+Optional<String> longest = words.stream()
+    .max(Comparator.comparingInt(String::length));
+System.out.println(longest.orElse("No words"));
+// Output: elephant
+```
+
+---
+
+## 🟣 **4️⃣ Real-World Use Cases**
+
+### **🔹 1. Processing Large Log Files Efficiently**
+```java
+Files.lines(Paths.get("server.log"))
+    .filter(line -> line.contains("ERROR"))
+    .forEach(System.out::println);
+```
+
+### **🔹 2. Querying a Database with Streams & JPA**
+```java
+List<User> users = userRepository.findAll().stream()
+    .filter(user -> user.getAge() > 30)
+    .collect(Collectors.toList());
+```
+
+---
+
+## 🚀 **Final Steps: Becoming a Stream API Expert**
+### 📌 **Key Takeaways:**
+✅ Prefer functional programming over loops where possible.  
+✅ Debug Streams using `peek()` and intermediate step breakdowns.  
+✅ Use **parallel streams** cautiously for large datasets.  
+✅ Master **map, filter, reduce** for effective data transformation.  
+✅ Prepare for **interview questions** by practicing advanced problems.  
+
+---
+
+Would you like additional **case studies**, **custom collectors**, or **parallel stream optimizations**? Let me know, and I'll refine it further! 🚀# 📌 Java Stream API - Advanced Guide & Interview Questions
+
+## 🟢 **1️⃣ Advanced Stream Optimizations**
+
+### 🔹 **1. Avoiding Unnecessary Computations**
+- Use **lazy evaluation** to prevent redundant calculations.
+- Prefer **short-circuiting operations** like `findFirst()`, `limit()`, `anyMatch()` to optimize performance.
+
+🔹 **Example: Using `findFirst()` Instead of `filter()` + `collect()`**
+```java
+List<String> names = Arrays.asList("John", "Jack", "James", "Jill");
+Optional<String> firstJ = names.stream()
+        .filter(name -> name.startsWith("J"))
+        .findFirst();
+System.out.println(firstJ.orElse("No match"));
+```
+
+---
+
+### 🔹 **2. Using Primitive Streams (`IntStream`, `LongStream`, `DoubleStream`)**
+- Avoid unnecessary boxing/unboxing overhead by using primitive streams.
+
+🔹 **Example: Using `IntStream` Instead of `Stream<Integer>`**
+```java
+int sum = IntStream.of(1, 2, 3, 4, 5).sum();
+System.out.println(sum); // Output: 15
+```
+
+---
+
+### 🔹 **3. Parallel Stream Best Practices**
+- **Use `parallelStream()` only for large datasets** to improve performance.
+- Avoid parallel streams in **I/O-bound operations**.
+- Always measure performance before using parallel streams.
+
+🔹 **Example: Parallel Processing for Large Datasets**
+```java
+List<Integer> numbers = IntStream.rangeClosed(1, 1_000_000).boxed().collect(Collectors.toList());
+long count = numbers.parallelStream()
+    .filter(n -> n % 2 == 0)
+    .count();
+System.out.println("Even numbers count: " + count);
+```
+
+---
+
+## 🟡 **2️⃣ Debugging Techniques for Streams**
+
+### 🔹 **1. Using `peek()` for Debugging**
+- `peek()` helps in checking intermediate stream results.
+
+🔹 **Example: Debugging with `peek()`**
+```java
+List<String> data = Arrays.asList("one", "two", "three");
+data.stream()
+    .peek(System.out::println)
+    .map(String::toUpperCase)
+    .peek(s -> System.out.println("After map: " + s))
+    .collect(Collectors.toList());
+```
+
+---
+
+### 🔹 **2. Breaking Down Streams into Steps**
+- Store intermediate results in variables to debug effectively.
+
+🔹 **Example: Splitting Steps**
+```java
+Stream<String> stream = Stream.of("apple", "banana", "cherry");
+Stream<String> filtered = stream.filter(s -> s.startsWith("a"));
+List<String> result = filtered.collect(Collectors.toList());
+System.out.println(result);
+```
+
+---
+
+## 🔴 **3️⃣ 100 Stream API Coding Interview Questions (Easy, Medium, Hard)**
+
+### **🔹 Map, Filter, Reduce, FlatMap, Collectors, Comparators, List**
+
+#### **🔹 Easy Questions (10)**
+1. Convert a list of strings to uppercase using `map()`.
+2. Find all even numbers from a list using `filter()`.
+3. Count the number of elements in a stream.
+4. Find the first element in a stream that matches a condition.
+5. Check if any element in a list is greater than 10.
+6. Sum all numbers in a list using `reduce()`.
+7. Convert a list of integers into a comma-separated string.
+8. Sort a list of strings alphabetically using streams.
+9. Remove duplicate elements from a list.
+10. Convert a list of objects to a map using `Collectors.toMap()`.
+
+#### **🔹 Medium Questions (10)**
+11. Find the duplicate elements in a list.
+12. Count the occurrences of each character in a string.
+13. Find the second highest number in a list.
+14. Flatten a list of lists into a single list using `flatMap()`.
+15. Partition numbers into even and odd using `Collectors.partitioningBy()`.
+16. Convert a stream to a TreeSet.
+17. Find words of a specific length in a sentence.
+18. Find the most frequent element in a list.
+19. Implement a custom comparator to sort a list of objects by multiple fields.
+20. Convert a stream into an unmodifiable list using `Collectors.toUnmodifiableList()`.
+
+#### **🔹 Hard Questions (10)**
+21. Find the longest word in a list.
+22. Compute the average of a list of numbers using `Collectors.averagingInt()`.
+23. Use `Collectors.groupingBy()` to categorize a list of students by grade.
+24. Implement a lazy-loading infinite stream using `Stream.iterate()`.
+25. Merge multiple maps into one using streams.
+26. Implement a parallel stream with performance benchmarks.
+27. Implement a caching mechanism using streams.
+28. Find the top `N` most frequent words in a paragraph.
+29. Implement a custom `Collector` to perform advanced data aggregation.
+30. Detect cycles in a graph using streams.
+
+#### **🔹 Short-Circuit Operators & Tricky Questions (10)**
+31. Use `limit()` to retrieve only the first 5 elements from a list.
+32. Use `anyMatch()`, `allMatch()`, and `noneMatch()` with examples.
+33. Efficiently find the first element in a sorted stream.
+34. Find the maximum element in a list using streams.
+35. Find the shortest string in a list.
+36. Use `findAny()` vs `findFirst()` in parallel streams.
+37. Convert a nested list structure into a single list.
+38. Implement a priority queue using streams.
+39. Detect missing numbers in a sequence using streams.
+40. Implement a word frequency counter using `Collectors.toMap()`.
+
+#### **🔹 Extreme & Most Tricky Questions (10)**
+41. Find palindromic substrings in a string using streams.
+42. Implement an LRU Cache using functional programming.
+43. Build a trie data structure using streams.
+44. Implement a custom parallel collector.
+45. Efficiently transform large datasets using memory-efficient streams.
+46. Use `IntStream` to generate prime numbers efficiently.
+47. Implement a multi-threaded batch processor using parallel streams.
+48. Simulate a stock market data stream with functional operations.
+49. Find the kth largest element efficiently using streams.
+50. Write an optimized solution for detecting circular dependencies in graphs.
+
+---
+
+## 🚀 **Final Steps: Becoming a Stream API Expert**
+### 📌 **Key Takeaways:**
+✅ Prefer functional programming over loops where possible.  
+✅ Debug Streams using `peek()` and intermediate step breakdowns.  
+✅ Use **parallel streams** cautiously for large datasets.  
+✅ Master **map, filter, reduce** for effective data transformation.  
+✅ Prepare for **interview questions** by practicing advanced problems.  
+
+Would you like additional **case studies**, **custom collectors**, or **parallel stream optimizations**? Let me know, and I'll refine it further! 🚀
+
+
 
 
