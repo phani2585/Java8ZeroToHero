@@ -333,12 +333,31 @@ System.out.println(isBinary.test("123")); // false
 
 ### **🔟 Check if a string is a palindrome ignoring case**
 ```java
+```Palindrome logic 
+   //palindrome check
+        String str="madam";
+        String rev = new StringBuilder(str).reverse().toString();
+        if(rev.equals(str)){
+            System.out.println(str + " is a palindrome");
+        }else{
+            System.out.println(str + "is not a palindrome");
+        }
+        Predicate<String> isPalindrome=s->IntStream.rangeClosed(0,s.length()/2).allMatch(i->s.charAt(i)==s.charAt(s.length()-1-i));
+        System.out.println("madam is palindrome :: "+isPalindrome.test("madam"));
+
+        Predicate<String> isPalindromeCase = s ->
+                IntStream.range(0, s.length() / 2)
+                        .allMatch(i -> Character.toLowerCase(s.charAt(i)) == Character.toLowerCase(s.charAt(s.length() - 1 - i)));
+
+        System.out.println(isPalindromeCase.test("Madam"));  // true
+        System.out.println(isPalindromeCase.test("Hello"));  // false
 Predicate<String> isPalindromeIgnoreCase = str -> {
     String lowerStr = str.toLowerCase();
     return IntStream.range(0, lowerStr.length() / 2)
         .allMatch(i -> lowerStr.charAt(i) == lowerStr.charAt(lowerStr.length() - 1 - i));
 };
 System.out.println(isPalindromeIgnoreCase.test("Madam")); // true
+```
 ```
 
 ## **🔴 2 Most Tough Problems**

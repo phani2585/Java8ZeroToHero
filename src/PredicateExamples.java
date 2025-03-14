@@ -6,6 +6,7 @@ import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class PredicateExamples {
     public static void main(String[] args) {
@@ -128,7 +129,26 @@ public class PredicateExamples {
         List<Integer> list2=Arrays.asList(1,2,2,3);
         System.out.println("list1 has unique elements :: "+hasUniqueElements.test(list1));
         System.out.println("list2 has unique elements :: "+hasUniqueElements.test(list2));
+
+        //palindrome check
+        String str="madam";
+        String rev = new StringBuilder(str).reverse().toString();
+        if(rev.equals(str)){
+            System.out.println(str + " is a palindrome");
+        }else{
+            System.out.println(str + "is not a palindrome");
+        }
+        Predicate<String> isPalindrome=s->IntStream.rangeClosed(0,s.length()/2).allMatch(i->s.charAt(i)==s.charAt(s.length()-1-i));
+        System.out.println("madam is palindrome :: "+isPalindrome.test("madam"));
+
+        Predicate<String> isPalindromeCase = s ->
+                IntStream.range(0, s.length() / 2)
+                        .allMatch(i -> Character.toLowerCase(s.charAt(i)) == Character.toLowerCase(s.charAt(s.length() - 1 - i)));
+
+        System.out.println(isPalindromeCase.test("Madam"));  // true
+        System.out.println(isPalindromeCase.test("Hello"));  // false
     }
+
     public static boolean isPrime(int num){
      if(num <2){
          return false; // 0 and 1 are not prime
